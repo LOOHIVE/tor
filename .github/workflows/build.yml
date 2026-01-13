@@ -1,6 +1,8 @@
 name: Build and Publish Tor Docker Image
 
 on:
+  push:
+    branches: [ "main" ]
   schedule:
     - cron: "0 3 * * 0"   # Weekly (Sunday 03:00 UTC)
   workflow_dispatch:      # Allow manual trigger
