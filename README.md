@@ -1,15 +1,17 @@
-# <img src="https://styleguide.torproject.org/static/images/tor-logo/color.svg" width="32"> Sapphive Tor Docker Image
+# <img src="https://styleguide.torproject.org/static/images/tor-logo/color.svg" width="32"> Sapphive Tor Proxy & Hosting Suite
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/sapphive/tor) ![Docker Image Size](https://img.shields.io/docker/image-size/sapphive/tor) ![Build Status](https://github.com/sapphive/tor-docker/actions/workflows/build.yml/badge.svg)
 
 ⚠️ **UNOFFICIAL IMAGE** ⚠️
 
-This is an unofficial Tor client image maintained by [SAPPHIVE](https://sapphive.com).
+This is an unofficial **Tor Proxy & Hosting Suite** maintained by [SAPPHIVE](https://sapphive.com). It provides an all-in-one solution for standard browsing, automated IP rotation, and secure hidden service hosting.
+
 Built directly from the official [Tor Project repositories](https://deb.torproject.org/).
 This project is **not** affiliated with, endorsed by, or sponsored by The Tor Project.
 
-## Why use this image?
+## Why use this suite?
 
+*   **Versatile:** Choose between standard, rotating, or hosting tags based on your needs.
 *   **Up-to-date:** Automatically rebuilt weekly to ensure the latest Tor version and security patches.
 *   **Production-grade:** Includes healthchecks and runs as a non-root user.
 *   **Official Sources:** Built using the Tor Project's own Debian repositories.
@@ -32,8 +34,15 @@ docker run -d \
   sapphive/tor:rotating
 ```
 
-### 🧅 Onion Sidecar (Hidden Services)
-Host your website or API on the darknet with zero configuration. This "sidecar" automatically generates a `.onion` address for any web service (Nginx, Apache, etc.).
+### 🧅 Onion Sidecar (Production-Ready Hosting)
+Securely host your website or API on the darknet with zero configuration. This "sidecar" provides a production-grade gateway that automatically handles identity generation, port forwarding, and global circuit publishing.
+
+**Capabilities:**
+*   **Full CRUD & Routes:** Supports POST requests, file uploads, sessions, and deep subpage routing.
+*   **Bypass Everything:** Works behind CGNAT, strict firewalls, and complex corporate networks without opening any ports.
+*   **Production Deployment:** Scale from local development to global production hosting instantly via a unique `.onion` URL.
+
+**Quick Start:**
 ```bash
 docker run -d \
   --name tor-gate \
@@ -41,7 +50,48 @@ docker run -d \
   -v ./tor-keys:/var/lib/tor/hidden_service \
   sapphive/tor:onion
 ```
-Check the logs to find your `.onion` address: `docker logs tor-gate`
+
+**What to expect in logs (`docker logs tor-gate`):**
+```text
+***************************************************
+ YOUR ONION ADDRESS: xxxxxxxx.onion
+***************************************************
+```
+
+## � Use Cases
+
+| Service | Best For... | Example |
+| :--- | :--- | :--- |
+| **Standard** | Privacy & Dev | Anonymous browsing or testing simple app connectivity. |
+| **Rotating** | Automation | High-speed web scraping, data mining, and bypassing rate limits. |
+| **Onion** | Decentralized Hosting | Publishing blogs, APIs, or internal tools without a public IP or NAT setup. |
+
+## �🏗️ Docker Compose Examples
+
+### Multi-Instance Rotating Proxy
+```yaml
+services:
+  tor:
+    image: sapphive/tor:rotating
+    environment:
+      - TOR_INSTANCES=10
+    ports:
+      - "9050:9050"
+```
+
+### Onion Sidecar Hosting
+```yaml
+services:
+  my-app:
+    image: node:alpine
+  
+  tor-gate:
+    image: sapphive/tor:onion
+    environment:
+      - TARGET=my-app:3000
+    volumes:
+      - ./tor-keys:/var/lib/tor/hidden_service
+```
 
 ## ⚙️ Configuration
 

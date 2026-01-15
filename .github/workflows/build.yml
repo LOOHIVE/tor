@@ -51,6 +51,7 @@ jobs:
             sapphive/tor:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          provenance: false
 
       - name: Build and push Rotating
         uses: docker/build-push-action@v5
@@ -64,6 +65,7 @@ jobs:
             sapphive/tor:rotating-${{ steps.build.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          provenance: false
 
       - name: Build and push Onion Sidecar
         uses: docker/build-push-action@v5
@@ -77,3 +79,4 @@ jobs:
             sapphive/tor:onion-${{ steps.build.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          provenance: false
