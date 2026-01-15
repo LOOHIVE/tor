@@ -64,3 +64,16 @@ jobs:
             sapphive/tor:rotating-${{ steps.build.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Build and push Onion Sidecar
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile.onion
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            sapphive/tor:onion
+            sapphive/tor:onion-${{ steps.build.outputs.version }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

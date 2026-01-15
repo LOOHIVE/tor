@@ -14,8 +14,9 @@ This image provides a production-hardened, automatically updated Tor client. It 
 ### Key Features:
 *   🛡️ **Security Hardened:** Runs as a non-root user (`debian-tor`).
 *   🔄 **IP Rotation:** Optional `rotating` tag for high-performance scraping and identity rotation.
+*   🧅 **Onion Hosting:** Optional `onion` tag to instantly "sidecar" any web app into a `.onion` service.
 *   🔄 **Fully Automated:** Rebuilt weekly to ensure the latest Tor binary and OS security patches.
-*   🩺 **Integrated Healthchecks:** Periodic internal checks verify the SOCKS5 proxy is active.
+*   🩺 **Integrated Healthchecks:** Periodic internal checks verify proxy activity (latest/rotating tags).
 
 ---
 
@@ -30,20 +31,21 @@ docker run -d --name tor-client -p 9050:9050 sapphive/tor:latest
 ### Rotating Proxy (Multi-Identity)
 For automated rotation, use the multi-instance version:
 ```bash
-docker run -d \
-  --name tor-rotating \
-  -p 9050:9050 \
-  -e TOR_INSTANCES=10 \
-  sapphive/tor:rotating
+docker run -d --name tor-rotating -p 9050:9050 -e TOR_INSTANCES=10 sapphive/tor:rotating
 ```
-*Port 9050 provides a single entry point that load-balances between multiple identities.*
+
+### Onion Sidecar (Hosting)
+Expose an existing web service (e.g., Nginx or Apache) as a hidden service:
+```bash
+docker run -d --name hs-gate -e TARGET=my_web_app:80 -v ./hs_keys:/var/lib/tor/hidden_service sapphive/tor:onion
+```
 
 ---
 
 ## 🏷️ Supported Tags
 *   `latest`, `stable`: Single Tor instance (Slim image).
-*   `rotating`: Multi-instance Tor proxy with built-in HAProxy load balancing.
-*   `0.4.x.x`: Specific Tor versions for high-stability environments.
+*   `rotating`: Multi-instance Tor proxy with built-in load balancing.
+*   `onion`: Onion Sidecar for hosting hidden services.
 
 ---
 

@@ -1,0 +1,29 @@
+FROM debian:stable-slim
+
+LABEL maintainer="SAPPHIVE <support@sapphive.com>"
+LABEL org.opencontainers.image.source="https://github.com/sapphive/tor-docker"
+LABEL org.opencontainers.image.description="Unofficial Tor Onion Sidecar (Hidden Services) image built from Tor Project repositories"
+
+# Install dependencies and Tor
+RUN apt update && \
+    apt install -y --no-install-recommends \
+    curl \
+    gnupg \
+    ca-certificates \
+    procps && \
+    curl https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc \
+      | gpg --dearmor > /usr/share/keyrings/tor-archive-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/tor-archive-keyring.gpg] https://deb.torproject.org/torproject.org stable main" \
+      > /etc/apt/sources.list.d/tor.list && \
+    apt update && \
+    apt install -y --no-install-recommends tor && \
+    apt clean && rm -rf /var/lib/apt/lists/*
+
+# Copy configuration script
+COPY entrypoint-onion.sh /usr/local/bin/entrypoint-onion.sh
+RUN chmod +x /usr/local/bin/entrypoint-onion.sh
+
+# Persistence is recommended for /var/lib/tor/hidden_service
+# to keep the same .onion address across restarts.
+
+ENTRYPOINT ["/usr/local/bin/entrypoint-onion.sh"]

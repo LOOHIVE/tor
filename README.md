@@ -31,16 +31,27 @@ docker run -d \
   -e TOR_INSTANCES=10 \
   sapphive/tor:rotating
 ```
-Test your rotation IP:
-`for i in {1..5}; do curl --socks5-hostname localhost:9050 https://check.torproject.org/api/ip; echo; sleep 1; done`
+
+### 🧅 Onion Sidecar (Hidden Services)
+Host your website or API on the darknet with zero configuration. This "sidecar" automatically generates a `.onion` address for any web service (Nginx, Apache, etc.).
+```bash
+docker run -d \
+  --name tor-gate \
+  -e TARGET=website_container:80 \
+  -v ./tor-keys:/var/lib/tor/hidden_service \
+  sapphive/tor:onion
+```
+Check the logs to find your `.onion` address: `docker logs tor-gate`
 
 ## ⚙️ Configuration
 
-### Environment Variables (Rotating Tag Only)
+### Environment Variables
 
-| Variable | Default | Description |
-| :--- | :--- | :--- |
-| `TOR_INSTANCES` | `10` | The number of independent Tor processes to run. |
+| Variable | Tag | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `TOR_INSTANCES` | `rotating` | `10` | The number of independent Tor processes to run. |
+| `TARGET` | `onion` | `localhost:80` | The internal address of the website to expose. |
+| `ONION_PORT` | `onion` | `80` | The port your `.onion` site will listen on. |
 
 ### Advanced: Custom `torrc` (Standard Tag Only)
 The standard image uses the default Tor configuration. You can mount your own `torrc` file:
