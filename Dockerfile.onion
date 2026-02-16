@@ -1,7 +1,7 @@
 FROM debian:stable-slim
 
-LABEL maintainer="SAPPHIVE <support@sapphive.com>"
-LABEL org.opencontainers.image.source="https://github.com/sapphive/tor-docker"
+LABEL maintainer="LOOHIVE <support@loohive.com>"
+LABEL org.opencontainers.image.source="https://github.com/loohive/tor-docker"
 LABEL org.opencontainers.image.description="Unofficial Tor Onion Sidecar (Hidden Services) image built from Tor Project repositories"
 
 # Install dependencies and Tor
@@ -23,7 +23,7 @@ RUN apt update && \
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout /etc/nginx/server.key \
     -out /etc/nginx/server.crt \
-    -subj "/C=UN/ST=Privacy/L=Tor/O=Sapphive/CN=tor-onion"
+    -subj "/C=UN/ST=Privacy/L=Tor/O=LOOHIVE/CN=tor-onion"
 
 # Copy configuration templates
 COPY nginx-onion.conf.template /etc/nginx/templates/nginx.conf.template

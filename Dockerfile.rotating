@@ -1,7 +1,7 @@
 FROM debian:stable-slim
 
-LABEL maintainer="SAPPHIVE <support@sapphive.com>"
-LABEL org.opencontainers.image.source="https://github.com/sapphive/tor-docker"
+LABEL maintainer="LOOHIVE <support@loohive.com>"
+LABEL org.opencontainers.image.source="https://github.com/loohive/tor-docker"
 LABEL org.opencontainers.image.description="Unofficial Tor rotating proxy (Multi-instance) image built from Tor Project repositories"
 
 # Install dependencies, Tor, HAProxy, and Supervisor

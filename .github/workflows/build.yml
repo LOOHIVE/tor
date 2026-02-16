@@ -33,8 +33,8 @@ jobs:
       - name: Build and inspect version
         id: build
         run: |
-          docker buildx build --platform linux/amd64 -t sapphive/tor:test --load .
-          TOR_VERSION=$(docker run --rm sapphive/tor:test tor --version | head -n 1 | awk '{print $3}')
+          docker buildx build --platform linux/amd64 -t loohive/tor:test --load .
+          TOR_VERSION=$(docker run --rm loohive/tor:test tor --version | head -n 1 | awk '{print $3}')
           echo "version=$TOR_VERSION" >> $GITHUB_OUTPUT
           echo "Detected Tor Version: $TOR_VERSION"
 
@@ -46,9 +46,9 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            sapphive/tor:${{ steps.build.outputs.version }}
-            sapphive/tor:stable
-            sapphive/tor:latest
+            loohive/tor:${{ steps.build.outputs.version }}
+            loohive/tor:stable
+            loohive/tor:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
           provenance: false
@@ -61,8 +61,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            sapphive/tor:rotating
-            sapphive/tor:rotating-${{ steps.build.outputs.version }}
+            loohive/tor:rotating
+            loohive/tor:rotating-${{ steps.build.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           provenance: false
@@ -75,8 +75,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            sapphive/tor:onion
-            sapphive/tor:onion-${{ steps.build.outputs.version }}
+            loohive/tor:onion
+            loohive/tor:onion-${{ steps.build.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           provenance: false

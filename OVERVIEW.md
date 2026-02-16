@@ -1,15 +1,15 @@
-# <img src="https://raw.githubusercontent.com/SAPPHIVE/onion-pipe-relay/main/src/assets/logo/logo.png" height="32"> Tor Proxy & Hosting Suite (maintained by Sapphive)
+# <img src="https://raw.githubusercontent.com/loohive/onion-pipe-relay/main/src/assets/logo/logo.png" height="32"> Tor Proxy & Hosting Suite (maintained by LOOHIVE)
 
-![Docker Pulls](https://img.shields.io/docker/pulls/sapphive/tor) ![Docker Image Size](https://img.shields.io/docker/image-size/sapphive/tor) ![Build Status](https://github.com/sapphive/tor-docker/actions/workflows/build.yml/badge.svg)
+![Docker Pulls](https://img.shields.io/docker/pulls/loohive/tor) ![Docker Image Size](https://img.shields.io/docker/image-size/loohive/tor) ![Build Status](https://github.com/loohive/tor-docker/actions/workflows/build.yml/badge.svg)
 
 ⚠️ **UNOFFICIAL IMAGE**
-*This is an unofficial Tor client image maintained by [SAPPHIVE](https://sapphive.com). It is built directly from official [Tor Project repositories](https://deb.torproject.org/). This project is not affiliated with, endorsed by, or sponsored by The Tor Project.*
+*This is an unofficial Tor client image maintained by [LOOHIVE](https://loohive.com). It is built directly from official [Tor Project repositories](https://deb.torproject.org/). This project is not affiliated with, endorsed by, or sponsored by The Tor Project.*
 
 ---
 
 ## 🚀 Overview
 
-The **Tor Proxy & Hosting Suite (maintained by Sapphive)** is a production-hardened collection of specialized Tor tools. It is designed to solve complex anonymity and hosting challenges with three distinct modes:
+The **Tor Proxy & Hosting Suite (maintained by LOOHIVE)** is a production-hardened collection of specialized Tor tools. It is designed to solve complex anonymity and hosting challenges with three distinct modes:
 
 *   **Standard Proxy:** High-performance, slim SOCKS5 client.
 *   **Rotating Identity:** Multi-instance load balancer for automated IP rotation and web scraping.
@@ -49,13 +49,13 @@ Designed for developers and DevOps teams, this suite provides reliable, zero-mai
 ### Standard Client (Single Identity)
 Run the latest stable version (slim image ~40MB):
 ```bash
-docker run -d --name tor-client -p 9050:9050 sapphive/tor:latest
+docker run -d --name tor-client -p 9050:9050 loohive/tor:latest
 ```
 
 ### Rotating Proxy (Multi-Identity)
 For automated rotation, use the multi-instance version:
 ```bash
-docker run -d --name tor-rotating -p 9050:9050 -e TOR_INSTANCES=10 sapphive/tor:rotating
+docker run -d --name tor-rotating -p 9050:9050 -e TOR_INSTANCES=10 loohive/tor:rotating
 ```
 
 ### Onion Sidecar (Production-Ready Hosting)
@@ -84,7 +84,7 @@ Expose any web service (Nginx, Apache, Node.js, PHP, etc.) as a hidden service i
 ```yaml
 services:
   tor:
-    image: sapphive/tor:latest
+    image: loohive/tor:latest
     ports:
       - "9050:9050"
 ```
@@ -93,7 +93,7 @@ services:
 ```yaml
 services:
   proxy:
-    image: sapphive/tor:rotating
+    image: loohive/tor:rotating
     ports:
       - "9050:9050"
     environment:
@@ -107,7 +107,7 @@ services:
     image: nginx:alpine
   
   tor-gate:
-    image: sapphive/tor:onion
+    image: loohive/tor:onion
     environment:
       - TARGET=website:80
     volumes:
@@ -122,10 +122,10 @@ services:
 ---
 
 ## 🤝 Maintainer & Support
-Maintained by the **Sapphive Infrastructure Team**.
-*   **Website:** [sapphive.com](https://sapphive.com)
-*   **Support:** [support@sapphive.com](mailto:support@sapphive.com)
-*   **Source:** [GitHub: sapphive/tor-docker](https://github.com/sapphive/tor-docker)
+Maintained by the **LOOHIVE Infrastructure Team**.
+*   **Website:** [loohive.com](https://loohive.com)
+*   **Support:** [support@loohive.com](mailto:support@loohive.com)
+*   **Source:** [GitHub: loohive/tor-docker](https://github.com/loohive/tor-docker)
 
 ## ⚖️ Legal Disclaimer
-Tor is a trademark of The Tor Project, Inc. This project is a community-driven implementation managed by SAPPHIVE and is not an official product of The Tor Project. All logos and trademarks belong to their respective owners.
+Tor is a trademark of The Tor Project, Inc. This project is a community-driven implementation managed by LOOHIVE and is not an official product of The Tor Project. All logos and trademarks belong to their respective owners.

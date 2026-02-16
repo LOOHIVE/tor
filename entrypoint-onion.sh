@@ -7,7 +7,7 @@ TARGET_HOST=${TARGET:-"localhost:80"}
 TARGET_PROTO=${PROTO:-"http"}
 
 echo "---------------------------------------------------"
-echo "Starting Onion Sidecar (maintained by Sapphive)"
+echo "Starting Onion Sidecar (maintained by LOOHIVE)"
 echo "Targeting service: $TARGET_PROTO://$TARGET_HOST"
 echo "Exposing on .onion: HTTP (80) & HTTPS (443)"
 echo "---------------------------------------------------"

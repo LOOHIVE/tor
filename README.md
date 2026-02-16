@@ -1,6 +1,6 @@
-# <img src="https://raw.githubusercontent.com/SAPPHIVE/onion-pipe-relay/main/src/assets/logo/logo.png" height="32"> Tor Container (maintained by Sapphive)
+# <img src="https://raw.githubusercontent.com/loohive/onion-pipe-relay/main/src/assets/logo/logo.png" height="32"> Tor Container (maintained by LOOHIVE)
 
-This is a lightweight, multi-purpose Tor container maintained by the Sapphive Infrastructure Team. It is designed for running hidden services, rotating proxies, and anonymous gateways.
+This is a lightweight, multi-purpose Tor container maintained by the LOOHIVE Infrastructure Team. It is designed for running hidden services, rotating proxies, and anonymous gateways.
 
 ## 🚀 Features
 - **Onion Service Mode**: Host any local port as a `.onion` address.
@@ -17,7 +17,7 @@ Expose a local web server (port 80) as an onion service.
 docker run -d \
   -e FORWARD_DEST=http://192.168.1.10:80 \
   -v ./keys:/var/lib/tor/hidden_service \
-  sapphive/tor:latest
+  loohive/tor:latest
 ```
 
 ### 2. Rotating SOCKS5 Proxy
@@ -27,7 +27,7 @@ Create a proxy that changes its identity every 60 seconds.
 docker run -d \
   -p 9050:9050 \
   -e ROTATE_INTERVAL=60 \
-  sapphive/tor:rotating
+  loohive/tor:rotating
 ```
 
 ## 📂 Configuration
